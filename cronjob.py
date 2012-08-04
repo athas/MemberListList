@@ -8,8 +8,8 @@ class MemberListList:
 	mailmanbindir = ''
 	
 	def handle_list(self, listname):
-		owners = os.popen('%slist_owners %s' % (self.mailmanbindir, listname)).read().replace("\n", ", ")
-		owners = 'svip@diku.dk'
+		print "Listing %s's members..." % listname
+		owners = os.popen('%slist_owners %s' % (self.mailmanbindir, listname)).read().replace("\n", ", ").strip().strip(",")
 		memberlist = os.popen('%slist_members %s' % (self.mailmanbindir, listname)).read()
 		efrom = 'boss@dikurevy.dk'
 		subject = u"Medlemmer på listen %s, dags dato" % listname
@@ -25,6 +25,7 @@ En Robot som faktisk ikke kan påbyde venlige hilsner :(""" % (listname, memberl
 		msg['Subject'] = subject
 		msg['From'] = efrom
 		msg['To'] = owners
+		print msg.as_string()
 		t = smtplib.SMTP('localhost')
 		t.sendmail(owners, efrom, msg.as_string())
 		t.quit()
@@ -41,5 +42,5 @@ En Robot som faktisk ikke kan påbyde venlige hilsner :(""" % (listname, memberl
 		self.mailmanbindir = c['mailmanbindir']
 		self.run()
 
-def __main__(self):
+if __name__ == "__main__":
 	MemberListList('config.json')
