@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- encoding: utf-8 -*-
-import os, json, smptlib
+import os, json, smtplib
 from email.mime.text import MIMEText
 
 class MemberListList:
